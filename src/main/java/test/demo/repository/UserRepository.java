@@ -6,4 +6,5 @@ import test.demo.data.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     
+    Boolean existsByUsername(String username);
 }
