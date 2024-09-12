@@ -1,7 +1,9 @@
 package test.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import test.demo.data.UserEntity;
@@ -11,21 +13,20 @@ import test.demo.repository.UserRepository;
 @Service
 public class JoinService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public JoinService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    public void joinProcess(JoinDto joinDto){
+    public void joinProcess(JoinDto joinDto) {
         String username = joinDto.getUsername();
         String password = joinDto.getPassword();
 
         Boolean isExist = userRepository.existsByUsername(username);
 
-        if(isExist) { return; }
+        if (isExist) {
+            return;
+        }
 
         UserEntity data = new UserEntity();
 
