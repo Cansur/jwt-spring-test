@@ -22,11 +22,9 @@ public class JoinService {
         String username = joinDto.getUsername();
         String password = joinDto.getPassword();
 
-        Boolean isExist = userRepository.existsByUsername(username);
+        Boolean isExist = userRepository.existsByUsername(username); // 요놈이 문제의 범인이었어
 
-        if (isExist) {
-            return;
-        }
+        if (isExist) { return; }
 
         UserEntity data = new UserEntity();
 
@@ -34,6 +32,6 @@ public class JoinService {
         data.setPassword(bCryptPasswordEncoder.encode(password));
         data.setRole("ROLE_ADMIN");
 
-        userRepository.save(data);
+        userRepository.save(data); // 요놈도
     }
 }
