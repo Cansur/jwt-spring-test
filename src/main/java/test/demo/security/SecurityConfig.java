@@ -46,6 +46,9 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/", "/join").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated());
+        
+        // LoginFilter 전에 JWTFilter 추가
+        http.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         // LoginFilter 필터를 UsernamePasswordAuthenticationFilter 와 같은 위치(/login)에 추가
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
