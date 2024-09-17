@@ -15,7 +15,7 @@ public class MainController {
         return "index.html";
     }
     
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String getLogin() {
         return "index.html";
     }
