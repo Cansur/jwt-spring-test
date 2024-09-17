@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 
+ * /login url 에서 post 로 username, password 을 담아서 요청하면 실행
  */
 public class LoginFilter extends UsernamePasswordAuthenticationFilter{
 
@@ -24,9 +24,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter{
 
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-		this.jwtUtil = jwtUtil;
+		    this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * Override 해서 그런지 어떻게 이게 왜 post가 열리는지 이해 불가
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
@@ -56,6 +59,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter{
 
         String token = jwtUtil.createJwt(username, role, 60*60*10L);
 
+        // Headers 부분에 Authorization 으로 token이 들어감
         response.addHeader("Authorization", "Bearer " + token);
     }
 

@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated());
 
+        // LoginFilter 필터를 UsernamePasswordAuthenticationFilter 와 같은 위치(/login)에 추가
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
         
         // 세션 설정
