@@ -1,23 +1,18 @@
 package test.demo.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 
-@Controller
+@RestController
 public class MainController {
     
     @GetMapping("/")
     public String getMainPage() {
-        return "index.html";
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return "Main Controller : " + name;
     }
-    
-    @PostMapping("/login")
-    public String getLogin() {
-        return "index.html";
-    }
-    
 }
